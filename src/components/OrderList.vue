@@ -81,6 +81,7 @@ const add = () => {
         margin: 5px;
         & label {
             display: flex;
+            height: 20px;
         }
         & input {
             height: 20px;

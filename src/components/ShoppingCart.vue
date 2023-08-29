@@ -39,47 +39,43 @@ const remove = (e: any) => {
     <div class="shopping-cart">
         <ul>
             <li v-for="item in props.data">
-                <div class="editing-list" v-if="item.isEditing">
-                    <div class="field">
-                        <label for="name">品項名稱：</label>
-                        <input type="text" id="name" v-model="editingCoffeeName">
+                <div>
+                    <div>
+                        <label for="name">品項名稱：{{ item.name }}</label>
+                        <input type="text" id="name" v-if="item.isEditing" v-model="editingCoffeeName">
                     </div>
-                    <div class="field">
-                        <label for="price">價格：</label>
-                        <input type="number" id="price" min="0" v-model="editingCoffeePrice">
+                    <div>
+                        <label for="price">價格：{{ item.price }} ( TWD )</label>
+                        <input type="number" id="price" min="0" v-if="item.isEditing" v-model="editingCoffeePrice">
                     </div>
-                    <div class="field">
-                        <label for="size">大小：</label>
-                        <select id="size" v-model="editingCoffeeSize">
+                    <div>
+                        <label for="size">大小：{{ item.size }}</label>
+                        <select v-if="item.isEditing" id="size" v-model="editingCoffeeSize">
                             <option value="L">L</option>
                             <option value="M">M</option>
                             <option value="S">S</option>
                         </select>
                     </div>
-                    <div class="field">
-                        <label for="cups">杯數：</label>
-                        <input type="number" id="cups" min="0" v-model="editingCoffeeCups">
+                    <div>
+                        <label for="cups">杯數：{{ item.cups }} ( 杯 )</label>
+                        <input type="number" id="cups" min="0" v-if="item.isEditing" v-model="editingCoffeeCups">
                     </div>
-                    <div class="field">
-                        <label for="note">備註：</label>
-                        <input type="text" id="note" v-model="editingCoffeeNote">
+                    <div v-if="item.note">
+                        <label for="note">備註：{{ item.note }}</label>
+                        <input type="text" id="note" v-if="item.isEditing" v-model="editingCoffeeNote">
                     </div>
-                </div>
-                <div v-else>
-                    <div>品項名稱：{{ item.name }}</div>
-                    <div>價格：{{ item.price }} ( TWD )</div>
-                    <div>大小：{{ item.size }}</div>
-                    <div>杯數：{{ item.cups }} ( 杯 )</div>
-                    <div v-if="item.note">備註：{{ item.note }}</div>
-                    <div v-else>備註：無</div>
+                    <div v-else>
+                        <label for="note">備註：無</label>
+                        <input type="text" id="note" v-if="item.isEditing" v-model="editingCoffeeNote">
+                    </div>
                 </div>
                 <div>
                     <div class="action-box">
-                        <button class="edit" v-if="item.isEditing" @click="save(item)">保存</button>
+                        <button class="save" v-if="item.isEditing" @click="save(item)">保存</button>
                         <button class="edit" v-else @click="edit(item)">編輯</button>
                     </div>
                     <div class="action-box">
-                        <button class="remove" @click="remove(item)">刪除</button>
+                        <button class="remove" v-if="!item.isEditing" @click="remove(item)">刪除</button>
                     </div>
                 </div>
             </li>
@@ -105,30 +101,31 @@ const remove = (e: any) => {
             &:last-of-type {
                 border: none;
             }
-            & .editing-list {
-                & .field {
-                    margin:5px;
-                    & label {
-                        display: flex
-                    }
-                    & input {
-                        height: 20px;
-                        border-radius: 5px;
-                        color: black;
-                    }
-                    & select {
-                        height: 20px;
-                        border: 2px inset black;
-                        border-radius: 5px;
-                        color: black;
-                        & option {
-                            color: black;
-                        }
-                    }
+            & label {
+                height: 30px;
+            }
+            & input {
+                height: 20px;
+                border-radius: 5px;
+                color: black;
+                margin-left: 5px;
+            }
+            & select {
+                height: 20px;
+                border: 2px inset black;
+                border-radius: 5px;
+                color: black;
+                margin-left: 5px;
+                & option {
+                    color: black;
                 }
             }
             & .action-box {
                 margin: 5px;
+                & .save {
+                    background: #28A745;
+                    font-weight: 700;
+                }
                 & .edit {
                     background: #FFC107;
                     font-weight: 700;
