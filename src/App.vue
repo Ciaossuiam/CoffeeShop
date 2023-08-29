@@ -4,7 +4,8 @@ import OrderList from './components/OrderList.vue';
 import ShoppingCart from './components/ShoppingCart.vue'
 
 const data = ref<Array<Object>>([])
-let arr:any = []
+data.value = JSON.parse(localStorage.getItem('shoppingCart') as string) || []
+let arr:any = JSON.parse(localStorage.getItem('shoppingCart') as string) || []
 const handleChildEvent = (element: object) => {
     arr = [element, ...arr]
     data.value = arr
