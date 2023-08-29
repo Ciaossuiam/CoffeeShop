@@ -5,7 +5,7 @@ import ShoppingCart from './components/ShoppingCart.vue'
 
 const data = ref<Array<Object>>([])
 data.value = JSON.parse(localStorage.getItem('shoppingCart') as string) || []
-let arr:any = JSON.parse(localStorage.getItem('shoppingCart') as string) || []
+let arr:any = data.value
 const handleChildEvent = (element: object) => {
     arr = [element, ...arr]
     data.value = arr
