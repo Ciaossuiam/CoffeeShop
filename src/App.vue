@@ -15,6 +15,7 @@ const handleChildEvent = (element: object) => {
 
 <template>
     <div class="app">
+        <h2>咖啡訂單系統</h2>
         <div class="order-box">
             <OrderList @shoppingCart="handleChildEvent" />
             <ShoppingCart :data="data" />
@@ -26,14 +27,17 @@ const handleChildEvent = (element: object) => {
 .app {
     width: 100%;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
     padding-top: 20px;
     border: 2px solid black;
     box-sizing: border-box;
     background: linear-gradient(to right, #59321D 0%, #8F6849 50%, #59321D 100%);
+    & h2 {
+        text-align: center;
+    }
     & .order-box {
         width: 50%;
+        margin-right: auto;
+        margin-left: auto;
         display: flex;
         justify-content: space-between;
         padding: 20px;

@@ -29,6 +29,9 @@ const save = (e: any) => {
     e.isEditing = false
     localStorage.setItem('shoppingCart', JSON.stringify(props.data))
 }
+const cancel = (e: any) => {
+    e.isEditing = false
+}
 const remove = (e: any) => {
     props.data?.splice(props.data?.indexOf(e), 1)
     localStorage.setItem('shoppingCart', JSON.stringify(props.data))
@@ -75,7 +78,8 @@ const remove = (e: any) => {
                         <button class="edit" v-else @click="edit(item)">編輯</button>
                     </div>
                     <div class="action-box">
-                        <button class="remove" v-if="!item.isEditing" @click="remove(item)">刪除</button>
+                        <button class="cancel" v-if="item.isEditing" @click="cancel(item)">取消</button>
+                        <button class="remove" v-else @click="remove(item)">刪除</button>
                     </div>
                 </div>
             </li>
@@ -128,6 +132,10 @@ const remove = (e: any) => {
                 }
                 & .edit {
                     background: #FFC107;
+                    font-weight: 700;
+                }
+                & .cancel {
+                    background: #6C757D;
                     font-weight: 700;
                 }
                 & .remove {
