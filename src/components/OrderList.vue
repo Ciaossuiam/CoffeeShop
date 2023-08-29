@@ -60,7 +60,7 @@ const add = () => {
         </select>
     </div>
     <div class="field">
-        <label for="size">杯數：</label>
+        <label for="cups">杯數：</label>
         <input type="number" id="cups" min="0" v-model="coffeeCups">
     </div>
     <div class="field">

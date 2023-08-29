@@ -40,24 +40,29 @@ const remove = (e: any) => {
         <ul>
             <li v-for="item in props.data">
                 <div class="editing-list" v-if="item.isEditing">
-                    <div>品項名稱：
-                        <input type="text" v-model="editingCoffeeName">
+                    <div class="field">
+                        <label for="name">品項名稱：</label>
+                        <input type="text" id="name" v-model="editingCoffeeName">
                     </div>
-                    <div>價格：
-                        <input type="number" min="0" v-model="editingCoffeePrice">
+                    <div class="field">
+                        <label for="price">價格：</label>
+                        <input type="number" id="price" min="0" v-model="editingCoffeePrice">
                     </div>
-                    <div>大小：
-                        <select v-model="editingCoffeeSize">
+                    <div class="field">
+                        <label for="size">大小：</label>
+                        <select id="size" v-model="editingCoffeeSize">
                             <option value="L">L</option>
                             <option value="M">M</option>
                             <option value="S">S</option>
                         </select>
                     </div>
-                    <div>杯數：
-                        <input type="number" min="0" v-model="editingCoffeeCups">
+                    <div class="field">
+                        <label for="cups">杯數：</label>
+                        <input type="number" id="cups" min="0" v-model="editingCoffeeCups">
                     </div>
-                    <div>備註：
-                        <input type="text" v-model="editingCoffeeNote">
+                    <div class="field">
+                        <label for="note">備註：</label>
+                        <input type="text" id="note" v-model="editingCoffeeNote">
                     </div>
                 </div>
                 <div v-else>
@@ -101,18 +106,24 @@ const remove = (e: any) => {
                 border: none;
             }
             & .editing-list {
-                & input {
-                    height: 20px;
-                    border-radius: 5px;
-                    color: black;
-                }
-                & select {
-                    height: 20px;
-                    border: 2px inset black;
-                    border-radius: 5px;
-                    color: black;
-                    & option {
+                & .field {
+                    margin:5px;
+                    & label {
+                        display: flex
+                    }
+                    & input {
+                        height: 20px;
+                        border-radius: 5px;
                         color: black;
+                    }
+                    & select {
+                        height: 20px;
+                        border: 2px inset black;
+                        border-radius: 5px;
+                        color: black;
+                        & option {
+                            color: black;
+                        }
                     }
                 }
             }
