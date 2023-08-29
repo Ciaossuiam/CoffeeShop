@@ -8,6 +8,7 @@ let arr:any = []
 const handleChildEvent = (element: object) => {
     arr = [element, ...arr]
     data.value = arr
+    localStorage.setItem('shoppingCart', JSON.stringify(arr))
 }
 </script>
 
@@ -35,6 +36,14 @@ const handleChildEvent = (element: object) => {
         display: flex;
         justify-content: space-between;
         padding: 20px;
+    }
+}
+@media(max-width: 991.98px) {
+    .app {
+        & .order-box {
+            width: 80%;
+            display: block;
+        }
     }
 }
 </style>

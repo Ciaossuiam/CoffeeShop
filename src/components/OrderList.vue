@@ -2,27 +2,39 @@
 import { ref } from 'vue';
 
 const emit = defineEmits();
-
+let uuid:string;
 const coffeeName = ref<string>()
 const coffeePrice = ref<number>()
 const coffeeSize = ref<string>()
+const coffeeCups = ref<number>(1)
 const coffeeNote = ref<string>()
 const order = ref<Object>({})
 
 const add = () => {
-    order.value = {
-        name: coffeeName.value,
-        price: coffeePrice.value,
-        size: coffeeSize.value,
-        note: coffeeNote.value
+    if(coffeeName.value && coffeePrice.value && coffeeSize.value  && coffeeCups.value) { // 當除了 note 以外的輸入框都被寫入
+        uuid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+        order.value = {
+            id: uuid,
+            name: coffeeName.value,
+            price: coffeePrice.value,
+            size: coffeeSize.value,
+            cups: coffeeCups.value,
+            note: coffeeNote.value,
+            isEditing: false,
+        }
+        emit('shoppingCart', {
+            id: uuid,
+            name: coffeeName.value,
+            price: coffeePrice.value,
+            size: coffeeSize.value,
+            cups: coffeeCups.value,
+            note: coffeeNote.value,
+            isEditing: false
+        })
+    } else {
+        alert('未填寫完整!')
     }
-    localStorage.setItem('shoppingCart', JSON.stringify(order.value))
-    emit('shoppingCart', {
-        name: coffeeName.value,
-        price: coffeePrice.value,
-        size: coffeeSize.value,
-        note: coffeeNote.value
-    })
+
 }
 </script>
 
@@ -37,7 +49,7 @@ const add = () => {
     </div>
     <div class="field">
         <label for="price">價格：</label>
-        <input type="number" id="price" v-model="coffeePrice">
+        <input type="number" id="price" min="0" v-model="coffeePrice">
     </div>
     <div class="field">
         <label for="size">大小：</label>
@@ -46,6 +58,10 @@ const add = () => {
             <option value="M">M</option>
             <option value="S">S</option>
         </select>
+    </div>
+    <div class="field">
+        <label for="size">杯數：</label>
+        <input type="number" id="cups" min="0" v-model="coffeeCups">
     </div>
     <div class="field">
         <label for="note">備註：</label>
@@ -63,6 +79,9 @@ const add = () => {
     color: white;
     & .field {
         margin: 5px;
+        & label {
+            display: flex;
+        }
         & input {
             height: 20px;
             border-radius: 5px;
@@ -70,6 +89,7 @@ const add = () => {
         }
         & select {
             height: 20px;
+            border: 2px inset black;
             border-radius: 5px;
             color: black;
             & option {
@@ -82,10 +102,16 @@ const add = () => {
         justify-content: flex-end;
     }
     & button {
-        /* background: #877865; */
         background-color: black;
         color: white;
         font-weight: 700;
+    }
+}
+@media(max-width: 991.98px) {
+    .order-list {
+        width: 50%;
+        margin-right: auto;
+        margin-left: auto;
     }
 }
 </style>
